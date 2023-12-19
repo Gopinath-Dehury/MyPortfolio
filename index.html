@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" media="screen and (max-width:800px)" href="tablet.css">
+    <link rel="stylesheet" media="screen and (max-width:530px)" href="phone.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.form').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+    
+                // Fetch the form data
+                const formData = new FormData(this);
+    
+                // Send a POST request to connect.php
+                fetch('connect.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Check the status and display a message
+                    if (data.status === 'success') {
+                        document.getElementById('success-message').innerText = data.message;
+                    } else {
+                        document.getElementById('error-message').innerText = data.message;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+
+        
+       
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="main">
+            <h1 class="headings">I AM<br>GOPINATH DEHURY</h1>
+            <button class="btn hireme">
+                <a href="https://www.linkedin.com/in/gopinathdehury9937055069/"> Hire Me</a>
+            </button>
+        </div>
+    </section>
+    <section id="about">
+        <h1 class="headings">ABOUT ME</h1>
+        <div id="pic">
+            <img src="dsc.JPG" alt="">
+            <div id="intro">
+                <h2>GOPINATH DEHURY</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum animi iusto facilis cum ratione veniam architecto, dolor eaque suscipit maxime voluptas debitis consectetur perferendis. Exercitationem animi ipsa voluptate reprehenderit voluptatibus! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde facilis vel eos mollitia odit architecto est inventore necessitatibus delectus perspiciatis, adipisci omnis cum earum eveniet aliquam maxime dolorem quaerat iusto! Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde nihil nostrum sequi voluptate quod hic alias repudiandae deleniti id. Repudiandae, dolorum! Reiciendis aliquid mollitia explicabo, dolor quidem voluptate quis sint!</p>
+            </div>
+        </div>
+    </section>
+    <section id="portfolio">
+        <h1 class="headings">PORTFOLIO</h1>
+        <div class="gallery">
+            <img src="port/dsc1.JPG" alt="">
+            <img src="port/dsc2.jpeg" alt="">
+            <img src="port/dsc3.jpeg" alt="">
+            <img src="port/dsc4.jpg" alt="">
+            <img src="port/dsc5.JPG" alt="">
+            <img src="port/dsc6.jpg" alt="">
+        </div>
+    </section>
+    <section id="services">
+        <h1 class="headings">SERVICES</h1>
+        <div class="row">
+            <div class="box">
+                <img src="Services/webdesign.png" alt="">
+                <h1 class="headings">Website Design</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+                   elit. Eius dolor alias quidem veritatis nesciunt id.
+                   Cum quidem autem aperiam, amet dolor nihil sed, 
+                   atque laudantium harum repellat a? Eveniet, maiores.</p>
+            </div>
+            <div class="box">
+                <img src="Services/uxui.png" alt="">
+                <h1 class="headings"> UX/UI Design </h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+                   elit. Eius dolor alias quidem veritatis nesciunt id.
+                   Cum quidem autem aperiam, amet dolor nihil sed, 
+                   atque laudantium harum repellat a? Eveniet, maiores.</p>
+            </div>
+            <div class="box">
+                <img src="Services/fullstack.png" alt="">
+                <h1 class="headings">Full-Stack Developer</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+                   elit. Eius dolor alias quidem veritatis nesciunt id.
+                   Cum quidem autem aperiam, amet dolor nihil sed, 
+                   atque laudantium harum repellat a? Eveniet, maiores.</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <h1 class="headings">CONTACT ME</h1>
+        <form action="connect.php" class="form" method="post">
+            <input type="text" name="name" class="input"  placeholder="Enter Your Name" required>
+            <input type="email" name="email" class="input" placeholder="Enter Your Email" required>
+            <textarea name="msg" id="msg" cols="30" rows="10" placeholder="Enter Your Message" required></textarea>
+            <button class="btn" type="submit" value="SEND" id="send">Send</button>
+            <p id="success-message" style="color: green;"></p>
+            <p id="error-message" style="color: red;"></p>
+        </form>
+            <!-- <p id="success-message" style="color: green;"></p>
+            <p id="error-message" style="color: red;"></p> -->
+    </section>
+    <script>
+    function checkPassword() {
+        // Prompt for the password
+        const enteredPassword = prompt('Enter the password:');
+
+        // Check if the entered password is correct
+        if (enteredPassword === 'Gopinath1999') {
+            // Redirect to the next page
+            window.location.href = 'contactmetable.html';
+        } else {
+            // Show an alert for incorrect password
+            alert('Incorrect password. Access denied.');
+        }
+    }
+    </script>
+    <div style="background-color: rgba(0,0,0,0.9);text-align: center;">
+            
+         <button id="viewContactTableBtn" class="btn" onclick="checkPassword()">&copy; GOPINATH DEHURY</button>
+         </div>
+</body>
+
+</html>

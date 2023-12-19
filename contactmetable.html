@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Contact Me Table</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+    <script>
+        // Function to delete a contact
+        function deleteContact(id) {
+            // Send a delete request to the server
+            fetch(`delete_contact.php?id=${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Check if the deletion was successful
+                if (data.status === 'success') {
+                    // Reload the page to reflect the updated data
+                    location.reload();
+                } else {
+                    console.error('Error deleting contact:', data.message);
+                }
+            })
+            .catch(error => console.error('Error deleting contact:', error));
+        }
+
+        // Fetch data from the server using JavaScript
+        fetch('get_contacts.php') // Assuming you have a server-side script to fetch data (get_contacts.php)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.querySelector('table');
+                data.forEach(contact => {
+                    const row = table.insertRow(-1);
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    const cell3 = row.insertCell(2);
+                    const cell4 = row.insertCell(3);
+
+                    cell1.textContent = contact.name;
+                    cell2.textContent = contact.email;
+                    cell3.textContent = contact.message;
+
+                    // Create a delete button for each row
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.onclick = function () {
+                        // Call the deleteContact function with the contact id
+                        deleteContact(contact.id);
+                    };
+                    cell4.appendChild(deleteButton);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
+</body>
+</html>
